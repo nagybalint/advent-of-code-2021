@@ -5,10 +5,11 @@ import nagybalint.Task
 case class Command(dir: String, amount: Int)
 
 class Day2Task1 extends Task {
+  val commands: Seq[Command] = inputs.getLines().toSeq
+    .map(_.split(" "))
+    .map(commStr => Command(commStr.head, commStr(1).toInt))
+
   override def solve(): Unit = {
-    val commands = inputs.getLines().toSeq
-      .map(_.split(" "))
-      .map(commStr => Command(commStr.head, commStr(1).toInt))
     val pos = commands.foldLeft(0, 0)((currentPos, command) => {
       command match {
         case Command("forward", x) => (currentPos._1 + x, currentPos._2)
